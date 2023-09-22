@@ -1,0 +1,6 @@
+[project]
+name = "hello_world"
+version = "0.0.0"
+dependencies = [
+    "dagger-io @ git+https://github.com/shykes/dagger.git@zenith-functions#subdirectory=sdk/python"
+]
