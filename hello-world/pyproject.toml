@@ -2,5 +2,6 @@
 name = "hello_world"
 version = "0.0.0"
 dependencies = [
+    # TODO: This is temporary, until we have codegen support.
     "dagger-io @ git+https://github.com/shykes/dagger.git@zenith-functions#subdirectory=sdk/python"
 ]
