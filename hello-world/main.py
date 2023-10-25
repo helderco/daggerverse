@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from dagger.ext import function
+from dagger.mod import function
 
 
 @function
