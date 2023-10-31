@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "main"
+version = "0.0.0"
+description = "Minimal Python module using Poetry"
+authors = ["helderco"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+dagger-io = {path="./sdk", develop=true}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
