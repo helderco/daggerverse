@@ -59,7 +59,7 @@ dagger up sphinx preview -n --src docs
 ## Local development
 
 You don't need to have Python in your host to run this module, but if you
-want to edit the code it's helful to get code inteligence in the IDE.
+want to edit the code it's helpful to get code inteligence in the IDE.
 
 First, run codegen to get the SDK locally:
 
