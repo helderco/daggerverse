@@ -1,5 +1,5 @@
 {
-  "name": "python-demo",
+  "name": "python",
   "sdk": "python",
   "exclude": [
     ".venv",
