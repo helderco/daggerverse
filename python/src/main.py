@@ -46,7 +46,7 @@ class Sphinx:
     def quickstart(
         self,
         project: Annotated[str, Doc("Project name")] = "Sphinx Demo",
-        author: Annotated[str, Doc("Author name")] = "Kubecon 2023",
+        author: Annotated[str, Doc("Author name")] = "Dagger @ KubeCon NA 2023",
     ) -> dagger.Directory:
         """Create and build a new Sphinx project."""
 
