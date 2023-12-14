@@ -1,5 +1,8 @@
 {
   "name": "hello-world",
-  "sdk": "python"
+  "sdk": "python",
+  "exclude": [
+    ".venv",
+    "sdk"
+  ]
 }
-

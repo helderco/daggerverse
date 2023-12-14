@@ -1,5 +1,7 @@
+from typing import Annotated
+
 import dagger
-from dagger.mod import Annotated, Doc, function, object_type
+from dagger import Doc, dag, function, object_type
 
 
 @object_type
@@ -44,9 +46,9 @@ class Examples:
     def base(self) -> dagger.Container:
         cache_key = "pipcache-py312-alpine-daggerverse-textualize"
         return (
-            dagger.container()
+            dag.container()
             .from_("python:3.12-alpine")
-            .with_mounted_cache("/root/.cache/pip", dagger.cache_volume(cache_key))
+            .with_mounted_cache("/root/.cache/pip", dag.cache_volume(cache_key))
             .with_exec(["pip", "install", f"{self.package}=={self.version}"])
             .with_mounted_directory("/src", self.examples_dir())
             .with_workdir("/src")
@@ -54,7 +56,7 @@ class Examples:
 
     def examples_dir(self) -> dagger.Directory:
         return (
-            dagger
+            dag
             .git(f"https://github.com/Textualize/{self.package}.git")
             .tag(f"v{self.version}")
             .tree()

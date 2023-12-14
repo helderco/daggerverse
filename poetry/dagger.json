@@ -1,4 +1,8 @@
 {
   "name": "poetry",
-  "sdk": "python"
+  "sdk": "python",
+  "exclude": [
+    ".venv",
+    "sdk"
+  ]
 }

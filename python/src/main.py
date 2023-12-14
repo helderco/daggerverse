@@ -1,5 +1,7 @@
+from typing import Annotated
+
 import dagger
-from dagger.mod import Annotated, Arg, Doc, function, object_type
+from dagger import Arg, Doc, dag, function, object_type
 
 PYTHON_VERSION= "3.12"
 
@@ -19,7 +21,7 @@ def http_server(
 ) -> dagger.Service:
     """Start an HTTP server on a directory."""
     return (
-        dagger.container()
+        dag.container()
         .from_(f"python:{version}-alpine")
         .with_mounted_directory("/srv", src)
         .with_workdir("/srv")
@@ -36,7 +38,7 @@ class Sphinx:
 
     def base(self) -> dagger.Container:
         return (
-            dagger.container()
+            dag.container()
             .from_(f"python:{self.python_version}-alpine")
             .with_exec(["pip", "install", f"sphinx=={self.version}"])
             .with_workdir("/work")
@@ -65,7 +67,7 @@ class Sphinx:
         )
 
         return (
-            dagger.directory()
+            dag.directory()
             .with_directory("docs", src)
             .with_directory("public", self.build(src))
         )
