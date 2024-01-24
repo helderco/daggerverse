@@ -1,0 +1,8 @@
+{
+  "name": "linguist",
+  "sdk": "python",
+  "excludes": [
+    ".venv",
+    "./sdk"
+  ]
+}
