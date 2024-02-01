@@ -5,5 +5,10 @@
     ".venv",
     "public",
     "sdk"
+  ],
+  "root-for": [
+    {
+      "source": "."
+    }
   ]
 }
