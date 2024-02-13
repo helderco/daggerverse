@@ -2,7 +2,7 @@
   "name": "poetry",
   "sdk": "python",
   "exclude": [
-    ".venv",
     "sdk"
-  ]
+  ],
+  "source": "."
 }

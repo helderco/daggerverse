@@ -2,13 +2,8 @@
   "name": "python",
   "sdk": "python",
   "exclude": [
-    ".venv",
     "public",
     "sdk"
   ],
-  "root-for": [
-    {
-      "source": "."
-    }
-  ]
+  "source": "."
 }

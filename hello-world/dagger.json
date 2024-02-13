@@ -2,7 +2,7 @@
   "name": "hello-world",
   "sdk": "python",
   "exclude": [
-    ".venv",
     "sdk"
-  ]
+  ],
+  "source": "."
 }
