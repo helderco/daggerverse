@@ -1,0 +1,11 @@
+{
+  "name": "python-codegen",
+  "sdk": "python",
+  "dependencies": [
+    {
+      "name": "codegen",
+      "source": "../codegen"
+    }
+  ],
+  "source": "."
+}
