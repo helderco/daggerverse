@@ -2,14 +2,26 @@ package main
 
 import "context"
 
-// Experimental alternative to the introspection query
+// Experimental alternative to the introspection query, using the TypeDef API
+//
+// TypeDefs require more requests than the introspection query, and some
+// types haven't been implemented yet, but they may provide more context
+// like the module name that implements an object type, for example.
+func (*Codegen) Experimental() *Experimental {
+   return &Experimental{}
+}
+
+// Experimental alternative to the introspection query, using the TypeDef API
+type Experimental struct { }
+
+// Get the names of all object types in the API
 //
 // Allows querying the API directly while filtering out the current module.
 // It does take more requests, compared to the introspection query which
 // takes a single request, or the introspection file which takes no requests.
 // However when this module is consumed, there's an exec to /runtime on
 // every function call.
-func (c *Codegen) ExperimentalObjectNames(ctx context.Context) ([]string, error) {
+func (e *Experimental) ObjectNames(ctx context.Context) ([]string, error) {
 	names := []string{}
 
 	modName, err := dag.CurrentModule().Name(ctx)
@@ -47,12 +59,12 @@ func (c *Codegen) ExperimentalObjectNames(ctx context.Context) ([]string, error)
 	return names, nil
 }
 
-// Experimental alternative to the introspection query
+// Get the names of all input object types in the API
 //
 // Only object types have an associated module name because input types
 // (and others) are only used in the core API. Modules don't expose either
 // custom scalars, enums, or interfaces, for example.
-func (c *Codegen) ExperimentalInputNames(ctx context.Context) ([]string, error) {
+func (e *Experimental) InputNames(ctx context.Context) ([]string, error) {
 	names := []string{}
 
 	types, err := dag.CurrentTypeDefs(ctx)

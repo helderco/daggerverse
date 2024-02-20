@@ -1,4 +1,8 @@
 // Codegen for the Dagger API
+//
+// The purpose of this module is to abstract in a common place all the
+// decisions that SDKs need to make on top of the GraphQL introspection
+// that's common to all GraphQL APIs.
 package main
 
 import (
@@ -13,15 +17,21 @@ import (
 
 type Codegen struct { }
 
-// Get the GraphQL query used to introspect the API
+// Get the GraphQL query used to get type information
 func (*Codegen) IntrospectionQuery() string {
 	return query
 }
 
 // Introspect the API to get the schema
+//
+// The schema information is used to generate the client code.
 func (*Codegen) Introspect(
 	ctx context.Context,
 	// A file with the result of the introspection query, in JSON format
+    //
+    // In runtime modules, the codegen function receives the contents of
+    // this file, which already filters out the runtime module itself from
+    // the results.
 	// +optional
 	fromJSON *File,
 ) (*Schema, error) {
@@ -51,9 +61,12 @@ func (*Codegen) Introspect(
 }
 
 // Result of the introspection, in JSON format
-func (s *Schema) AsJSON() string {
-	b, _ := json.MarshalIndent(s, "", "  ")
-	return string(b)
+func (s *Schema) AsJSON() (string, error) {
+	b, err := json.MarshalIndent(s, "", "  ")
+    if err != nil {
+        return "", err
+    }
+	return string(b), nil
 }
 
 func (s *Schema) update() *Schema {
@@ -67,6 +80,14 @@ func (s *Schema) sorted() *Schema {
 		if strings.HasPrefix(t.Name, "__") {
 			continue
 		}
+        // Skip current module
+        if strings.HasPrefix(t.Name, "Codegen") {
+            continue
+        }
+        // Rename Query to Client
+        if t.Name == "Query" {
+            t.Name = rootObjectName
+        }
 		types = append(types, t)
 	}
 
@@ -92,9 +113,9 @@ func (s *Schema) sorted() *Schema {
 func (s *Schema) splitNames() *Schema {
 	for _, t := range s.Types {
 		for _, f := range t.Fields {
-			f.NameSplit = splitName(f.Name)
+			f.NameWords = splitName(f.Name)
 			for _, a := range f.Args {
-				a.NameSplit = splitName(a.Name)
+				a.NameWords = splitName(a.Name)
 			}
 		}
 	}
