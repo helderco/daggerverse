@@ -1,0 +1,14 @@
+from dagger.client.base import Scalar, Object
+
+{{ range .Scalars ctx }}
+class {{ .Name ctx }}(Scalar):
+    {{ if .Description ctx }}"""{{ .Description ctx }}"""{{ end }}
+{{ end }}
+
+{{ range .Objects ctx }}
+class {{ .Name ctx }}(Object):
+    {{ range .Fields ctx }}
+    def {{ .NameWords ctx | ToSnake }}(self):
+        ...
+    {{ end }}
+{{ end }}

@@ -1,0 +1,12 @@
+{
+  "name": "go-python-codegen",
+  "sdk": "go",
+  "dependencies": [
+    {
+      "name": "codegen",
+      "source": "../codegen"
+    }
+  ],
+  "source": "dagger",
+  "engineVersion": "v0.9.11"
+}
