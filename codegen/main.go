@@ -42,7 +42,7 @@ func (*Codegen) Introspect(
 			return nil, fmt.Errorf("unmarshal introspection json: %w", err)
 		}
 	} else {
-		err := dag.c.MakeRequest(ctx, &graphql.Request{
+		err := dag.Client.MakeRequest(ctx, &graphql.Request{
 			Query:  query,
 			OpName: "IntrospectionQuery",
 		}, &graphql.Response{

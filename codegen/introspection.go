@@ -245,8 +245,6 @@ type TypeRef struct {
 }
 
 // Is this type optional?
-//
-// Only makes sense
 func (r TypeRef) IsOptional() bool {
 	return r.Kind != TypeKindNonNull
 }
