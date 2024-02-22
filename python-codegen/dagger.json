@@ -7,5 +7,6 @@
       "source": "../codegen"
     }
   ],
-  "source": "."
+  "source": ".",
+  "engineVersion": "v0.9.11"
 }

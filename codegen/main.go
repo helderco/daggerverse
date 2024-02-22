@@ -1,8 +1,4 @@
 // Codegen for the Dagger API
-//
-// The purpose of this module is to abstract in a common place all the
-// decisions that SDKs need to make on top of the GraphQL introspection
-// that's common to all GraphQL APIs.
 package main
 
 import (
@@ -46,7 +42,7 @@ func (*Codegen) Introspect(
 			return nil, fmt.Errorf("unmarshal introspection json: %w", err)
 		}
 	} else {
-		err := dag.c.MakeRequest(ctx, &graphql.Request{
+		err := dag.Client.MakeRequest(ctx, &graphql.Request{
 			Query:  query,
 			OpName: "IntrospectionQuery",
 		}, &graphql.Response{

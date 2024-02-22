@@ -1,3 +1,4 @@
+"""Experimental Python codegen using the codegen module"""
 import anyio
 
 from dagger import dag, function, object_type
@@ -9,10 +10,12 @@ class PythonCodegen:
         """Get the name of all object types"""
         objs = await dag.codegen().introspect().objects()
 
+        # preserve order
         n = [""] * len(objs)
         async def _name(i, obj):
             n[i] = await obj.name()
 
+        # request concurrently
         async with anyio.create_task_group() as tg:
             for i, obj in enumerate(objs):
                 tg.start_soon(_name, i, obj)
