@@ -34,7 +34,7 @@ class Linguist:
         file: Annotated[str, "Path to a single file to analyze"] = "",
         rev: Annotated[str, "The git revision to analyze"] = "",
         breakdown: Annotated[bool, "Show the breakdown of files by language"] = False,
-        json: Annotated[bool, "Output the data into JSON format"] = False,
+        as_json: Annotated[bool, "Output the Linguist data in JSON format"] = False,
     ) -> str:
         """Run the github-linguist tool on the source code"""
         args = ["github-linguist"]
@@ -42,7 +42,7 @@ class Linguist:
             args += ["--rev", rev]
         if breakdown:
             args += ["--breakdown"]
-        if json:
+        if as_json:
             args += ["--json"]
         if file:
             args += [file]
