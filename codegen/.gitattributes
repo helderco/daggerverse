@@ -1,2 +1,2 @@
 dagger.gen.go linguist-generated
-/querybuilder/** linguist-generated
+/internal/** linguist-generated

@@ -1,4 +1,14 @@
 // Codegen for the Dagger API
+//
+// This module is an experiment in testing the viability of simplifying codegen
+// implementations in Dagger SDKs using a module.
+//
+// This is done by centralizing the GraphQL introspection, and pre-processing
+// the data needed for templates as much as possible.
+//
+// This lowers the barrier of entry for new SDKs, but also makes it a lot easier
+// to maintain existing SDKs and keep them consistent with each other.
+
 package main
 
 import (
@@ -11,6 +21,7 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
+// Functions for API introspection to facilitate codegen
 type Codegen struct { }
 
 // Get the GraphQL query used to get type information
@@ -42,7 +53,7 @@ func (*Codegen) Introspect(
 			return nil, fmt.Errorf("unmarshal introspection json: %w", err)
 		}
 	} else {
-		err := dag.Client.MakeRequest(ctx, &graphql.Request{
+		err := dag.GraphQLClient().MakeRequest(ctx, &graphql.Request{
 			Query:  query,
 			OpName: "IntrospectionQuery",
 		}, &graphql.Response{
@@ -76,6 +87,7 @@ func (s *Schema) sorted() *Schema {
 		if strings.HasPrefix(t.Name, "__") {
 			continue
 		}
+        // TODO: Use currentTypeDefs to get the name of types defined in the current module and filter these out
         // Skip current module
         if strings.HasPrefix(t.Name, "Codegen") {
             continue

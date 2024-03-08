@@ -17,6 +17,7 @@ type response struct {
 	Schema *Schema `json:"__schema"`
 }
 
+// Result of the introspection
 type Schema struct {
 	// A list of all types supported by this server
 	//
@@ -239,8 +240,11 @@ func (f *Field) GetArg(
 // Can be the return type of a field, the type of a field argument,
 // or the underlying type in a list or non-null type.
 type TypeRef struct {
+    // The kind of type, e.g., object, scalar, etc.
 	Kind   TypeKind `json:"kind"`
+    // The name of a named type.
 	Name   string   `json:"name,omitempty"`
+    // The sub-type of a list or non-null type.
 	OfType *TypeRef `json:"ofType,omitempty"`
 }
 
