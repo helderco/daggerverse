@@ -1,6 +1,11 @@
 {
   "name": "python-codegen",
   "sdk": "python",
+  "exclude": [
+    ".ruff_cache",
+    ".venv",
+    "sdk"
+  ],
   "dependencies": [
     {
       "name": "codegen",
@@ -8,5 +13,5 @@
     }
   ],
   "source": ".",
-  "engineVersion": "v0.9.11"
+  "engineVersion": "v0.10.1"
 }
