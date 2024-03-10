@@ -1,8 +1,11 @@
 {
   "name": "linguist",
   "sdk": "python",
-  "source": ".",
   "exclude": [
+    ".ruff_cache",
+    ".venv",
     "sdk"
-  ]
+  ],
+  "source": ".",
+  "engineVersion": "v0.10.1"
 }

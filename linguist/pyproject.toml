@@ -1,3 +1,21 @@
 [project]
 name = "main"
-version = "0.1.0"
+version = "0.0.0"
+requires-python = ">= 3.11"
+dynamic = ["dependencies"]
+
+[tool.rye]
+managed = true
+
+[tool.rye.workspace]
+members = ["sdk"]
+
+[tool.rye.scripts]
+lock-sdk = "uv pip compile sdk/pyproject.toml -U -o requirements-sdk.lock"
+
+[tool.hatch.metadata.hooks.requirements_txt]
+files = ["requirements-sdk.lock"]
+
+[build-system]
+requires = ["hatchling", "hatch-requirements-txt"]
+build-backend = "hatchling.build"
