@@ -8,11 +8,11 @@ import "context"
 // types haven't been implemented yet, but they may provide more context
 // like the module name that implements an object type, for example.
 func (*Codegen) Experimental() *Experimental {
-   return &Experimental{}
+	return &Experimental{}
 }
 
 // Experimental alternative to the introspection query, using the TypeDef API
-type Experimental struct { }
+type Experimental struct{}
 
 // Get the names of all object types in the API
 //
@@ -85,4 +85,3 @@ func (e *Experimental) InputNames(ctx context.Context) ([]string, error) {
 
 	return names, nil
 }
-

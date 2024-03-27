@@ -22,7 +22,7 @@ import (
 )
 
 // Functions for API introspection to facilitate codegen
-type Codegen struct { }
+type Codegen struct{}
 
 // Get the GraphQL query used to get type information
 func (*Codegen) IntrospectionQuery() string {
@@ -35,10 +35,10 @@ func (*Codegen) IntrospectionQuery() string {
 func (*Codegen) Introspect(
 	ctx context.Context,
 	// A file with the result of the introspection query, in JSON format
-    //
-    // In runtime modules, the codegen function receives the contents of
-    // this file, which already filters out the runtime module itself from
-    // the results.
+	//
+	// In runtime modules, the codegen function receives the contents of
+	// this file, which already filters out the runtime module itself from
+	// the results.
 	// +optional
 	fromJSON *File,
 ) (*Schema, error) {
@@ -70,9 +70,9 @@ func (*Codegen) Introspect(
 // Result of the introspection, in JSON format
 func (s *Schema) AsJSON() (string, error) {
 	b, err := json.MarshalIndent(s, "", "  ")
-    if err != nil {
-        return "", err
-    }
+	if err != nil {
+		return "", err
+	}
 	return string(b), nil
 }
 
@@ -87,15 +87,15 @@ func (s *Schema) sorted() *Schema {
 		if strings.HasPrefix(t.Name, "__") {
 			continue
 		}
-        // TODO: Use currentTypeDefs to get the name of types defined in the current module and filter these out
-        // Skip current module
-        if strings.HasPrefix(t.Name, "Codegen") {
-            continue
-        }
-        // Rename Query to Client
-        if t.Name == "Query" {
-            t.Name = rootObjectName
-        }
+		// TODO: Use currentTypeDefs to get the name of types defined in the current module and filter these out
+		// Skip current module
+		if strings.HasPrefix(t.Name, "Codegen") {
+			continue
+		}
+		// Rename Query to Client
+		if t.Name == "Query" {
+			t.Name = rootObjectName
+		}
 		types = append(types, t)
 	}
 
@@ -129,4 +129,3 @@ func (s *Schema) splitNames() *Schema {
 	}
 	return s
 }
-
