@@ -166,6 +166,17 @@ func (t *Type) GetField(
 	return nil
 }
 
+// Get an object type's fields that return a leaf type
+func (t *Type) Leafs() []*Field {
+    var leafs []*Field
+    for _, f := range t.Fields {
+        if f.Type.IsLeaf() {
+            leafs = append(leafs, f)
+        }
+    }
+    return leafs
+}
+
 // An object type's field
 type Field struct {
 	// The name of the field
